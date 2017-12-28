@@ -18,7 +18,7 @@ import { iAppend } from './iAppend';
         <span class="fileRecommend">{{recommend}}</span>
       </div>
       <div class="textFileContainer" *ngIf="isDrop">
-        <span class="fileTitle">{{textDrop}}</span>
+        <span class="fileTitle">{{textDrop}}</span> <br />
         <span class="fileRecommend">{{recommend}}</span>
       </div>
     </div>
