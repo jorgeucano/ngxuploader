@@ -35,21 +35,20 @@ var UploaderService = (function () {
     };
     /**
      * @param {?} file
-     * @param {?=} token
-     * @param {?=} appends
-     * @param {?=} urlBackend
+     * @param {?} token
+     * @param {?} appends
+     * @param {?} urlBackend
      * @return {?}
      */
     UploaderService.prototype.uploadXHR = /**
      * @param {?} file
-     * @param {?=} token
-     * @param {?=} appends
-     * @param {?=} urlBackend
+     * @param {?} token
+     * @param {?} appends
+     * @param {?} urlBackend
      * @return {?}
      */
     function (file, token, appends, urlBackend) {
         var _this = this;
-        if (token === void 0) { token = ''; }
         this.isUpload$.next(true);
         var /** @type {?} */ files = file.files;
         var /** @type {?} */ formData = new FormData();
@@ -58,7 +57,6 @@ var UploaderService = (function () {
         }
         if (appends !== undefined) {
             appends.forEach(function (element) {
-                // formData.append('path', 'environment.urlS3ImagePath');
                 formData.append(element.name, element.value);
             });
         }
@@ -116,9 +114,21 @@ var NgxUploaderComponent = (function () {
         this.canSave = true;
         this.percentComplete = 0;
         this.isDrop = false;
+        this.textUpload = 'Upload';
+        this.recommend = 'Recommend minimum size 100x100px';
+        this.textDrop = 'Drop Here';
         this.token = '';
         this.urlBackend = 'http://localhost:8080/api/file/';
     }
+    /**
+     * @return {?}
+     */
+    NgxUploaderComponent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.uploaderService.unsubscribeSubjects();
+    };
     /**
      * @param {?} v
      * @return {?}
@@ -156,8 +166,8 @@ var NgxUploaderComponent = (function () {
     NgxUploaderComponent.decorators = [
         { type: Component, args: [{
                     selector: 'ngx-uploader-component',
-                    template: "\n  <div class=\"file\">\n    <div class=\"notImage\"  *ngIf=\"percentComplete === 0\">\n      <input type=\"file\" class=\"file-input\" #fileInput\n      (dragleave)=\"drop(false)\"\n      (dragenter)=\"drop(true)\"\n      (change)=\"uploader()\"\n      />\n      <div class=\"textFileContainer\" *ngIf=\"!isDrop\">\n        <span class=\"fileTitle\">Upload</span> <br />\n        <span class=\"fileRecommend\">Recommended minimum 100x100px</span>\n      </div>\n      <div class=\"textFileContainer\" *ngIf=\"isDrop\">\n        <span class=\"fileTitle\">drop here</span>\n      </div>\n    </div>\n    <span *ngIf=\"percentComplete > 0 && !canSave\">\n      <img [src]=\"fileName\" class=\"img-demo\" />\n      <span class=\"logo-name\"> {{fileName}} </span>\n      <button class=\"remove\"> - </button>\n    </span>\n    <span *ngIf=\"percentComplete > 0 && canSave\"> Uploading </span>\n</div>",
-                    styles: ["\n   md-dialog-container {\n  background: white;\n}\n.mat-dialog-container {\n    background: white!important;\n}\n\napp-new-channel {\n  background: white;\n}\n.file {\n  border-style: dashed;\n  width: 500px;\n  height: 100px;\n  background-color: gold;\n}\n\n.file-input {\n  width: 100%;\n  height: 100px;\n  position: absolute;\n  z-index: 999999;\n  opacity: 0;\n}\n\n.fileTitle {\n  width: 100%;\n  padding: 10px;\n  text-align: center;\n  font-size: 22px;\n  font-weight: 800;\n}\n\n.textFileContainer {\n    width: 100%;\n    text-align: center;\n    padding-top: 18px;\n}\n\n.inputName {\n  width: 100%;\n  height: 27px;\n  font-size: 16px;\n}\n\n.inputColor {\n  width: 40%;\n  height: 20px;\n  font-size: 16px;\n  margin-left: -4px;\n}\n\n.img-demo {\n  width: 100px;\n  padding: 10px;\n  float: left;\n  height: 70px;\n}\n\n.logo-name{\n  float: left;\n  width: 50%;\n  overflow: hidden;\n}\n\n.remove {\n  float: left;\n  border-radius: 50%;\n}\n \n  "]
+                    template: "\n  <div class=\"file\">\n    <div class=\"notImage\"  *ngIf=\"percentComplete === 0\">\n      <input type=\"file\" class=\"file-input\" #fileInput\n      (dragleave)=\"drop(false)\"\n      (dragenter)=\"drop(true)\"\n      (change)=\"uploader()\"\n      />\n      <div class=\"textFileContainer\" *ngIf=\"!isDrop\">\n        <span class=\"fileTitle\">{{textUpload}}</span> <br />\n        <span class=\"fileRecommend\">{{recommend}}</span>\n      </div>\n      <div class=\"textFileContainer\" *ngIf=\"isDrop\">\n        <span class=\"fileTitle\">{{textDrop}}</span> <br />\n        <span class=\"fileRecommend\">{{recommend}}</span>\n      </div>\n    </div>\n    <span *ngIf=\"percentComplete > 0 && !canSave\">\n      <img [src]=\"fileName\" class=\"img-demo\" />\n      <span class=\"logo-name\"> {{fileName}} </span>\n      <button class=\"remove\"> - </button>\n    </span>\n    <span *ngIf=\"percentComplete > 0 && canSave\"> Uploading </span>\n</div>",
+                    styles: ["\n   md-dialog-container {\n  background: white;\n}\n.mat-dialog-container {\n    background: white!important;\n}\n\napp-new-channel {\n  background: white;\n}\n.file {\n  border-style: dashed;\n  width: 100%;\n  min-height: 50px;\n}\n\n.file-input {\n  width: 100%;\n  min-height: 50px;\n  max-height: 100%;\n  position: absolute;\n  z-index: 999999;\n  opacity: 0;\n}\n\n.fileTitle {\n  width: 100%;\n  padding: 10px;\n  text-align: center;\n  font-size: 22px;\n  font-weight: 800;\n}\n\n.textFileContainer {\n    width: 100%;\n    text-align: center;\n    padding-top: 18px;\n}\n\n.inputName {\n  width: 100%;\n  height: 27px;\n  font-size: 16px;\n}\n\n.inputColor {\n  width: 40%;\n  height: 20px;\n  font-size: 16px;\n  margin-left: -4px;\n}\n\n.img-demo {\n  max-width: 100%;\n  max-height: 100%;\n  padding: 10px;\n  float: left;\n  \n}\n\n.logo-name{\n  float: left;\n  width: 50%;\n  overflow: hidden;\n}\n\n.remove {\n  float: left;\n  border-radius: 50%;\n}\n \n  "]
                 },] },
     ];
     /** @nocollapse */
@@ -166,6 +176,9 @@ var NgxUploaderComponent = (function () {
     ]; };
     NgxUploaderComponent.propDecorators = {
         "fileInput": [{ type: ViewChild, args: ['fileInput',] },],
+        "textUpload": [{ type: Input },],
+        "recommend": [{ type: Input },],
+        "textDrop": [{ type: Input },],
         "token": [{ type: Input },],
         "urlBackend": [{ type: Input },],
         "appends": [{ type: Input },],

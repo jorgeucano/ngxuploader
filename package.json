@@ -1,6 +1,6 @@
 {
   "name": "ngxuploader",
-  "version": "0.0.1",
+  "version": "1.0.2",
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp",
@@ -20,7 +20,7 @@
     "email": "jorgeucano@gmail.com"
   },
   "keywords": [
-    "angular"
+    "angular", "uploader", "upload", "component uploader"
   ],
   "license": "MIT",
   "bugs": {

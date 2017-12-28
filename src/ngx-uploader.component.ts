@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import {ViewChild} from '@angular/core';
 import { UploaderService } from './uploader.service';
 import { iAppend } from './iAppend';
@@ -18,7 +18,7 @@ import { iAppend } from './iAppend';
         <span class="fileRecommend">{{recommend}}</span>
       </div>
       <div class="textFileContainer" *ngIf="isDrop">
-        <span class="fileTitle">{{textDrop}}</span>
+        <span class="fileTitle">{{textDrop}}</span> <br />
         <span class="fileRecommend">{{recommend}}</span>
       </div>
     </div>
@@ -103,7 +103,7 @@ app-new-channel {
  
   `]
 })
-export class NgxUploaderComponent {
+export class NgxUploaderComponent implements OnDestroy {
 
   file: any = {};
   canSave: boolean = true;
@@ -123,6 +123,10 @@ export class NgxUploaderComponent {
   @Input() appends: Array<iAppend>;
 
   constructor(private uploaderService: UploaderService) {
+  }
+
+  ngOnDestroy() {
+    this.uploaderService.unsubscribeSubjects();
   }
 
   drop(v: boolean) {
