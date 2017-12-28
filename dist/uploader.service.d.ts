@@ -7,6 +7,6 @@ export declare class UploaderService {
     constructor();
     createSubjects(): void;
     unsubscribeSubjects(): void;
-    uploadXHR(file: any, token: string, appends: Array<iAppend>, urlBackend: string): void;
+    uploadXHR(file: any, token: string | '', appends: Array<iAppend>, urlBackend: string): void;
     setImageUrl(xhrResponse: any): void;
 }

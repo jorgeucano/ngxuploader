@@ -26,7 +26,7 @@ export class UploaderService {
     }
   }
 
-   uploadXHR(file: any, token: string = '', appends: Array<iAppend>, urlBackend: string) {
+   uploadXHR(file: any, token: string | '', appends: Array<iAppend>, urlBackend: string) {
     this.isUpload$.next(true);
     const files = file.files;
     let formData = new FormData();
@@ -35,7 +35,6 @@ export class UploaderService {
     }
     if (appends !==  undefined ) {
       appends.forEach(element => {
-        // formData.append('path', 'environment.urlS3ImagePath');
         formData.append(element.name, element.value);
       });
     }

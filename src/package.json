@@ -1,6 +1,6 @@
 {
   "name": "ngxuploader",
-  "version": "0.1.3",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/jorgeucano/ngxuploader"
@@ -10,7 +10,7 @@
     "email": "jorgeucano@gmail.com"
   },
   "keywords": [
-    "angular"
+    "angular", "uploader", "upload", "component uploader"
   ],
   "license": "MIT",
   "bugs": {

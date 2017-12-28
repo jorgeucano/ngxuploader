@@ -1,7 +1,6 @@
 {
   "name": "ngxuploader",
-  "version": "1.0.0",
-  "description": "NGXUploader is a library for uploader anything in angular",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/jorgeucano/ngxuploader"
@@ -11,7 +10,7 @@
     "email": "jorgeucano@gmail.com"
   },
   "keywords": [
-    "angular"
+    "angular", "uploader", "upload", "component uploader"
   ],
   "license": "MIT",
   "bugs": {
