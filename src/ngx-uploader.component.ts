@@ -14,11 +14,12 @@ import { iAppend } from './iAppend';
       (change)="uploader()"
       />
       <div class="textFileContainer" *ngIf="!isDrop">
-        <span class="fileTitle">Upload</span> <br />
-        <span class="fileRecommend">Recommended minimum 100x100px</span>
+        <span class="fileTitle">{{textUpload}}</span> <br />
+        <span class="fileRecommend">{{recommend}}</span>
       </div>
       <div class="textFileContainer" *ngIf="isDrop">
-        <span class="fileTitle">drop here</span>
+        <span class="fileTitle">{{textDrop}}</span>
+        <span class="fileRecommend">{{recommend}}</span>
       </div>
     </div>
     <span *ngIf="percentComplete > 0 && !canSave">
@@ -41,14 +42,14 @@ app-new-channel {
 }
 .file {
   border-style: dashed;
-  width: 500px;
-  height: 100px;
-  background-color: gold;
+  width: 100%;
+  min-height: 50px;
 }
 
 .file-input {
   width: 100%;
-  height: 100px;
+  min-height: 50px;
+  max-height: 100%;
   position: absolute;
   z-index: 999999;
   opacity: 0;
@@ -82,10 +83,11 @@ app-new-channel {
 }
 
 .img-demo {
-  width: 100px;
+  max-width: 100%;
+  max-height: 100%;
   padding: 10px;
   float: left;
-  height: 70px;
+  
 }
 
 .logo-name{
@@ -112,6 +114,10 @@ export class NgxUploaderComponent {
   isDrop = false;
   fileName: string;
 
+
+  @Input() textUpload: string = 'Upload';
+  @Input() recommend: string = 'Recommend minimum size 100x100px';
+  @Input() textDrop: string = 'Drop Here';
   @Input() token: string = '';
   @Input() urlBackend: string = 'http://localhost:8080/api/file/';
   @Input() appends: Array<iAppend>;
