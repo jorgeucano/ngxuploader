@@ -1,24 +1,34 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/BehaviorSubject')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/BehaviorSubject'], factory) :
-	(factory((global.ngxuploader = {}),global._angular_core,global._angular_common,global.rxjs_BehaviorSubject));
-}(this, (function (exports,_angular_core,_angular_common,rxjs_BehaviorSubject) { 'use strict';
+	(factory((global['<%= props'] = global['<%= props'] || {}, global['<%= props'].libraryName = global['<%= props'].libraryName || {}, global['<%= props'].libraryName['original %>'] = {}),global.core,global.common,global.BehaviorSubject));
+}(this, (function (exports,core,common,BehaviorSubject) { 'use strict';
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var UploaderService = (function () {
     function UploaderService() {
     }
     /**
      * @return {?}
      */
-    UploaderService.prototype.createSubjects = function () {
-        this.percentUpload$ = new rxjs_BehaviorSubject.BehaviorSubject(0);
-        this.nameUpload$ = new rxjs_BehaviorSubject.BehaviorSubject('');
-        this.isUpload$ = new rxjs_BehaviorSubject.BehaviorSubject(false);
+    UploaderService.prototype.createSubjects = /**
+     * @return {?}
+     */
+    function () {
+        this.percentUpload$ = new BehaviorSubject.BehaviorSubject(0);
+        this.nameUpload$ = new BehaviorSubject.BehaviorSubject('');
+        this.isUpload$ = new BehaviorSubject.BehaviorSubject(false);
     };
     /**
      * @return {?}
      */
-    UploaderService.prototype.unsubscribeSubjects = function () {
+    UploaderService.prototype.unsubscribeSubjects = /**
+     * @return {?}
+     */
+    function () {
         if (this.percentUpload$ !== undefined) {
             this.percentUpload$.unsubscribe();
             this.nameUpload$.unsubscribe();
@@ -32,7 +42,14 @@ var UploaderService = (function () {
      * @param {?=} urlBackend
      * @return {?}
      */
-    UploaderService.prototype.uploadXHR = function (file, token, appends, urlBackend) {
+    UploaderService.prototype.uploadXHR = /**
+     * @param {?} file
+     * @param {?=} token
+     * @param {?=} appends
+     * @param {?=} urlBackend
+     * @return {?}
+     */
+    function (file, token, appends, urlBackend) {
         var _this = this;
         if (token === void 0) { token = ''; }
         this.isUpload$.next(true);
@@ -74,24 +91,27 @@ var UploaderService = (function () {
      * @param {?} xhrResponse
      * @return {?}
      */
-    UploaderService.prototype.setImageUrl = function (xhrResponse) {
+    UploaderService.prototype.setImageUrl = /**
+     * @param {?} xhrResponse
+     * @return {?}
+     */
+    function (xhrResponse) {
         console.log(xhrResponse);
         this.nameUpload$.next(xhrResponse);
     };
+    UploaderService.decorators = [
+        { type: core.Injectable },
+    ];
+    /** @nocollapse */
+    UploaderService.ctorParameters = function () { return []; };
     return UploaderService;
 }());
-UploaderService.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-UploaderService.ctorParameters = function () { return []; };
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var NgxUploaderComponent = (function () {
-    /**
-     * @param {?} uploaderService
-     */
     function NgxUploaderComponent(uploaderService) {
         this.uploaderService = uploaderService;
         this.file = {};
@@ -105,13 +125,20 @@ var NgxUploaderComponent = (function () {
      * @param {?} v
      * @return {?}
      */
-    NgxUploaderComponent.prototype.drop = function (v) {
+    NgxUploaderComponent.prototype.drop = /**
+     * @param {?} v
+     * @return {?}
+     */
+    function (v) {
         this.isDrop = v;
     };
     /**
      * @return {?}
      */
-    NgxUploaderComponent.prototype.uploader = function () {
+    NgxUploaderComponent.prototype.uploader = /**
+     * @return {?}
+     */
+    function () {
         var _this = this;
         this.uploaderService.unsubscribeSubjects();
         this.drop(false);
@@ -128,59 +155,62 @@ var NgxUploaderComponent = (function () {
         });
         this.uploaderService.uploadXHR(this.fileInput.nativeElement, this.token, this.appends, this.urlBackend);
     };
+    NgxUploaderComponent.decorators = [
+        { type: core.Component, args: [{
+                    selector: 'ngx-uploader-component',
+                    template: "\n  <div class=\"file\">\n    <div class=\"notImage\"  *ngIf=\"percentComplete === 0\">\n      <input type=\"file\" class=\"file-input\" #fileInput\n      (dragleave)=\"drop(false)\"\n      (dragenter)=\"drop(true)\"\n      (change)=\"uploader()\"\n      />\n      <div class=\"textFileContainer\" *ngIf=\"!isDrop\">\n        <span class=\"fileTitle\">Upload</span> <br />\n        <span class=\"fileRecommend\">Recommended minimum 100x100px</span>\n      </div>\n      <div class=\"textFileContainer\" *ngIf=\"isDrop\">\n        <span class=\"fileTitle\">drop here</span>\n      </div>\n    </div>\n    <span *ngIf=\"percentComplete > 0 && !canSave\">\n      <img [src]=\"fileName\" class=\"img-demo\" />\n      <span class=\"logo-name\"> {{fileName}} </span>\n      <button class=\"remove\"> - </button>\n    </span>\n    <span *ngIf=\"percentComplete > 0 && canSave\"> Uploading </span>\n</div>",
+                    styles: ["\n   md-dialog-container {\n  background: white;\n}\n.mat-dialog-container {\n    background: white!important;\n}\n\napp-new-channel {\n  background: white;\n}\n.file {\n  border-style: dashed;\n  width: 500px;\n  height: 100px;\n  background-color: gold;\n}\n\n.file-input {\n  width: 100%;\n  height: 100px;\n  position: absolute;\n  z-index: 999999;\n  opacity: 0;\n}\n\n.fileTitle {\n  width: 100%;\n  padding: 10px;\n  text-align: center;\n  font-size: 22px;\n  font-weight: 800;\n}\n\n.textFileContainer {\n    width: 100%;\n    text-align: center;\n    padding-top: 18px;\n}\n\n.inputName {\n  width: 100%;\n  height: 27px;\n  font-size: 16px;\n}\n\n.inputColor {\n  width: 40%;\n  height: 20px;\n  font-size: 16px;\n  margin-left: -4px;\n}\n\n.img-demo {\n  width: 100px;\n  padding: 10px;\n  float: left;\n  height: 70px;\n}\n\n.logo-name{\n  float: left;\n  width: 50%;\n  overflow: hidden;\n}\n\n.remove {\n  float: left;\n  border-radius: 50%;\n}\n \n  "]
+                },] },
+    ];
+    /** @nocollapse */
+    NgxUploaderComponent.ctorParameters = function () { return [
+        { type: UploaderService, },
+    ]; };
+    NgxUploaderComponent.propDecorators = {
+        "fileInput": [{ type: core.ViewChild, args: ['fileInput',] },],
+        "token": [{ type: core.Input },],
+        "urlBackend": [{ type: core.Input },],
+        "appends": [{ type: core.Input },],
+    };
     return NgxUploaderComponent;
 }());
-NgxUploaderComponent.decorators = [
-    { type: _angular_core.Component, args: [{
-                selector: 'ngx-uploader-component',
-                template: "\n  <div class=\"file\">\n    <div class=\"notImage\"  *ngIf=\"percentComplete === 0\">\n      <input type=\"file\" class=\"file-input\" #fileInput\n      (dragleave)=\"drop(false)\"\n      (dragenter)=\"drop(true)\"\n      (change)=\"uploader()\"\n      />\n      <div class=\"textFileContainer\" *ngIf=\"!isDrop\">\n        <span class=\"fileTitle\">Upload</span> <br />\n        <span class=\"fileRecommend\">Recommended minimum 100x100px</span>\n      </div>\n      <div class=\"textFileContainer\" *ngIf=\"isDrop\">\n        <span class=\"fileTitle\">drop here</span>\n      </div>\n    </div>\n    <span *ngIf=\"percentComplete > 0 && !canSave\">\n      <img [src]=\"fileName\" class=\"img-demo\" />\n      <span class=\"logo-name\"> {{fileName}} </span>\n      <button class=\"remove\"> - </button>\n    </span>\n    <span *ngIf=\"percentComplete > 0 && canSave\"> Uploading </span>\n</div>",
-                styles: ["\n   md-dialog-container {\n  background: white;\n}\n.mat-dialog-container {\n    background: white!important;\n}\n\napp-new-channel {\n  background: white;\n}\n.file {\n  border-style: dashed;\n  width: 500px;\n  height: 100px;\n  background-color: gold;\n}\n\n.file-input {\n  width: 100%;\n  height: 100px;\n  position: absolute;\n  z-index: 999999;\n  opacity: 0;\n}\n\n.fileTitle {\n  width: 100%;\n  padding: 10px;\n  text-align: center;\n  font-size: 22px;\n  font-weight: 800;\n}\n\n.textFileContainer {\n    width: 100%;\n    text-align: center;\n    padding-top: 18px;\n}\n\n.inputName {\n  width: 100%;\n  height: 27px;\n  font-size: 16px;\n}\n\n.inputColor {\n  width: 40%;\n  height: 20px;\n  font-size: 16px;\n  margin-left: -4px;\n}\n\n.img-demo {\n  width: 100px;\n  padding: 10px;\n  float: left;\n  height: 70px;\n}\n\n.logo-name{\n  float: left;\n  width: 50%;\n  overflow: hidden;\n}\n\n.remove {\n  float: left;\n  border-radius: 50%;\n}\n \n  "]
-            },] },
-];
-/**
- * @nocollapse
- */
-NgxUploaderComponent.ctorParameters = function () { return [
-    { type: UploaderService, },
-]; };
-NgxUploaderComponent.propDecorators = {
-    'fileInput': [{ type: _angular_core.ViewChild, args: ['fileInput',] },],
-    'token': [{ type: _angular_core.Input },],
-    'urlBackend': [{ type: _angular_core.Input },],
-    'appends': [{ type: _angular_core.Input },],
-};
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var NgxUploderModule = (function () {
     function NgxUploderModule() {
     }
     /**
      * @return {?}
      */
-    NgxUploderModule.forRoot = function () {
+    NgxUploderModule.forRoot = /**
+     * @return {?}
+     */
+    function () {
         return {
             ngModule: NgxUploderModule,
             providers: [UploaderService]
         };
     };
+    NgxUploderModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        common.CommonModule
+                    ],
+                    declarations: [
+                        NgxUploaderComponent
+                    ],
+                    exports: [
+                        NgxUploaderComponent
+                    ]
+                },] },
+    ];
+    /** @nocollapse */
+    NgxUploderModule.ctorParameters = function () { return []; };
     return NgxUploderModule;
 }());
-NgxUploderModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [
-                    _angular_common.CommonModule
-                ],
-                declarations: [
-                    NgxUploaderComponent
-                ],
-                exports: [
-                    NgxUploaderComponent
-                ]
-            },] },
-];
-/**
- * @nocollapse
- */
-NgxUploderModule.ctorParameters = function () { return []; };
 
 exports.NgxUploderModule = NgxUploderModule;
 exports.NgxUploaderComponent = NgxUploaderComponent;
