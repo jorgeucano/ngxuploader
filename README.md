@@ -120,8 +120,8 @@ report in [github](https://github.com/jorgeucano/ngxuploader/issues)
 
 ## DEMO
 
-[stackblitz](https://stackblitz.com/edit/angular-fhacrk)
-the demo its only angular right now, no have backend (wip)
+[stackblitz](https://stackblitz.com/edit/ngxuploader)
+the demo its only angular right now, you need put your urlBackend :) 
 
 ## License
 
