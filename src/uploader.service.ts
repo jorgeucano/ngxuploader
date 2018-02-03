@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { iAppend } from './iAppend';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class UploaderService {
@@ -9,6 +10,7 @@ export class UploaderService {
   percentUpload$: any;
   nameUpload$: any;
   isUpload$: any;
+  uploadSuccess$: Subject<string>;
 
   constructor() { }
 
@@ -16,6 +18,7 @@ export class UploaderService {
     this.percentUpload$ = new BehaviorSubject(0);
     this.nameUpload$ = new BehaviorSubject('');
     this.isUpload$ = new BehaviorSubject(false);
+    this.uploadSuccess$ = new Subject();
   }
 
   unsubscribeSubjects() {
@@ -53,6 +56,7 @@ export class UploaderService {
     xhr.onload = () => {
       if (xhr.status === 200) {
         this.setImageUrl(xhr.responseText);
+        this.uploadSuccess$.next(xhr.responseText);
       } else {
         alert('An error occurred!');
       }
