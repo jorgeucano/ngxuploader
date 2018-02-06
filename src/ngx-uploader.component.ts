@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import {ViewChild} from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { UploaderService } from './uploader.service';
 import { iAppend } from './iAppend';
 
@@ -140,7 +140,7 @@ export class NgxUploaderComponent implements OnDestroy {
     this.uploaderService.createSubjects();
 
     this.uploaderService.percentUpload$.subscribe({
-      next: (v) =>  this.percentComplete = v
+      next: (v) => this.percentComplete = v
     });
     this.uploaderService.nameUpload$.subscribe({
       next: (v) => this.fileName = v
